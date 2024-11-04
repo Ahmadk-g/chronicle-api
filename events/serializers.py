@@ -8,14 +8,12 @@ class EventSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
 
-    def validate_and_display_ticket_price(self, price):
-    # Validate and return the appropriate display value
-        if price is not None:
-            if price < 0:
+    def validate_ticket_price(self, value):
+        if value is not None:
+            if value < 0:
                 raise serializers.ValidationError('Ticket price cannot be negative!')
-            elif price == 0:
-                return 'Free'
-        return str(price) 
+        return value
+
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
