@@ -1,4 +1,4 @@
-from rest_framework.response import Response
+from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from attendings.models import Attending
 from attendings.serializers import AttendingSerializer

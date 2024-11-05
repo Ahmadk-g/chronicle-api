@@ -1,3 +1,5 @@
+from django.db import models
+from django.db.models import Count
 from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Event
@@ -8,7 +10,10 @@ class EventList(generics.ListCreateAPIView):
    
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Event.objects.all()
+    queryset = Event.objects.annotate(
+        interested_count=Count('attendings', filter=models.Q(attendings__status='interested')),
+        attending_count=Count('attendings', filter=models.Q(attendings__status='attending'))
+    ).order_by('-created_at')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -18,4 +23,7 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     
     serializer_class = EventSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Event.objects.all()
+    queryset = Event.objects.annotate(
+        interested_count=Count('attendings', filter=models.Q(attendings__status='interested')),
+        attending_count=Count('attendings', filter=models.Q(attendings__status='attending'))
+    ).order_by('-created_at')

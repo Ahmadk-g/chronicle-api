@@ -7,6 +7,8 @@ class EventSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    interested_count = serializers.ReadOnlyField()
+    attending_count = serializers.ReadOnlyField()
 
     def validate_ticket_price(self, value):
         if value is not None:
@@ -38,5 +40,6 @@ class EventSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
             'title', 'description', 'image', 'ticket_price', 
-            'event_date', 'start_time', 'end_time', 'category', 'location'
+            'event_date', 'start_time', 'end_time', 'category',
+            'location', 'interested_count', 'attending_count'
         ]
