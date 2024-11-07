@@ -4,6 +4,11 @@ from events.models import Event
 
 
 class Attending(models.Model):
+    """
+    Attending model, related to 'owner' and 'event'.
+    'owner' is a User instance and 'event' is an Event instance.
+    Tracks the attendance status of the user for the event.
+    """
 
     STATUS_CHOICES = [
         ('interested', 'Interested'),
@@ -17,8 +22,7 @@ class Attending(models.Model):
     status = models.CharField(
         max_length=15,
         choices=STATUS_CHOICES,
-        default=None,
-        blank=True,
+        blank=False,
         null=True
     )
     created_at = models.DateTimeField(auto_now_add=True)

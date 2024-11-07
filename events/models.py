@@ -3,9 +3,8 @@ from django.contrib.auth.models import User
 
 class Event(models.Model):
     """
-    Event model related to 'owner', a User instance.
-    Fields include title, description, ticket price, image,
-    accessibility alt text, category, date, and time frame.
+    Event model, related to 'owner', a User instance.
+    Default image set so that we can always reference image.url.
     """
     
     CATEGORY_CHOICES = [
@@ -26,15 +25,14 @@ class Event(models.Model):
 ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=255, blank=False, null=False)
+    description = models.TextField(max_length=1000, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    ticket_price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    ticket_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     image = models.ImageField(
         upload_to='images/', 
-        default='../default_post_b29qkk', 
-        blank=True
+        default='../default_post_b29qkk'    
     )
     category = models.CharField(
         max_length=30,

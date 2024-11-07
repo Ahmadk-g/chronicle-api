@@ -5,6 +5,11 @@ from events.models import Event
 
 
 class Notification(models.Model):
+    """
+    Notification model, related to 'owner' and 'notifier'.
+    'owner' is the user receiving the notification, and 'notifier' is the user who triggered it.
+    Tracks different types of notifications related to actions.
+    """
 
     NOTIFICATION_TYPES = [
         ('follow', 'Follow'),

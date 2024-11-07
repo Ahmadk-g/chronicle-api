@@ -34,6 +34,21 @@ class EventSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def to_representation(self, instance):
+        """
+        Override the default `to_representation` method to customize 
+        how ticket_price is represented.
+        """
+        representation = super().to_representation(instance)
+        
+        # Modify the ticket_price field
+        if instance.ticket_price == 0.00:
+            representation['ticket_price'] = "Free"
+        else:
+            representation['ticket_price'] = f"€{instance.ticket_price:.2f}"
+
+        return representation
+
     class Meta:
         model = Event
         fields = [
