@@ -7,6 +7,7 @@ from comments.models import Comment
 from posts.models import Post
 from attendings.models import Attending
 
+
 @receiver(post_save, sender=Follower)
 def create_follower_notification(sender, instance, created, **kwargs):
     if created:
@@ -15,6 +16,7 @@ def create_follower_notification(sender, instance, created, **kwargs):
             notifier=instance.owner,
             notification_type='follow',
         )
+
 
 @receiver(post_save, sender=Like)
 def create_like_notification(sender, instance, created, **kwargs):
@@ -26,6 +28,7 @@ def create_like_notification(sender, instance, created, **kwargs):
             post=instance.post,
         )
 
+
 @receiver(post_save, sender=Comment)
 def create_comment_notification(sender, instance, created, **kwargs):
     if created:
@@ -35,6 +38,7 @@ def create_comment_notification(sender, instance, created, **kwargs):
             notification_type='comment',
             post=instance.post,
         )
+
 
 @receiver(post_save, sender=Attending)
 def create_attendance_notification(sender, instance, created, **kwargs):

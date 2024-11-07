@@ -2,13 +2,18 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from attendings.models import Attending
 
+
 class AttendingSerializer(serializers.ModelSerializer):
     """
     Serializer for the Attending model.
-    Ensures 'status' is required and handles unique constraint on 'owner' and 'event'.
+    Ensures 'status' is required and
+    handles unique constraint on 'owner' and 'event'.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
-    status = serializers.ChoiceField(choices=Attending.STATUS_CHOICES, required=True)
+    status = serializers.ChoiceField(
+        choices=Attending.STATUS_CHOICES,
+        required=True
+    )
 
     class Meta:
         model = Attending

@@ -38,8 +38,6 @@ class PostSerializer(serializers.ModelSerializer):
             return like.id if like else None
         return None
 
-
-
     class Meta:
         model = Post
         fields = [

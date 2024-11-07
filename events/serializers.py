@@ -13,9 +13,9 @@ class EventSerializer(serializers.ModelSerializer):
     def validate_ticket_price(self, value):
         if value is not None:
             if value < 0:
-                raise serializers.ValidationError('Ticket price cannot be negative!')
+                raise serializers.ValidationError(
+                    'Ticket price cannot be negative!')
         return value
-
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -36,11 +36,11 @@ class EventSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         """
-        Override the default `to_representation` method to customize 
+        Override the default `to_representation` method to customize
         how ticket_price is represented.
         """
         representation = super().to_representation(instance)
-        
+
         # Modify the ticket_price field
         if instance.ticket_price == 0.00:
             representation['ticket_price'] = "Free"
@@ -54,7 +54,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'title', 'description', 'image', 'ticket_price', 
+            'title', 'description', 'image', 'ticket_price',
             'event_date', 'start_time', 'end_time', 'category',
             'location', 'interested_count', 'attending_count'
         ]

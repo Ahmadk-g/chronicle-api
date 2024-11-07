@@ -3,6 +3,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from attendings.models import Attending
 from attendings.serializers import AttendingSerializer
 
+
 class AttendingList(generics.ListCreateAPIView):
     """
     List attendings or create an attendance record.

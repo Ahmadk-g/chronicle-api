@@ -14,7 +14,7 @@ class Attending(models.Model):
         ('interested', 'Interested'),
         ('attending', 'Attending')
     ]
-   
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(
         Event, related_name='attendings', on_delete=models.CASCADE
@@ -39,7 +39,7 @@ class Attending(models.Model):
         if self.pk is not None:
             previous = Attending.objects.get(pk=self.pk)
             if previous.status != self.status:
-                self._status_changed = True  # Set a flag to track status change
+                self._status_changed = True  # Set flag to track status change
         else:
             self._status_changed = False  # New instance, no change yet
 
