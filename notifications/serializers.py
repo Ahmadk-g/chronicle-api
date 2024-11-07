@@ -10,7 +10,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = [
             'id', 'owner', 'notifier_name', 'notification_type',
-            'post', 'is_read', 'created_at'
+            'post', 'event', 'is_read', 'created_at'
         ]
 
     def mark_as_read(self, instance):

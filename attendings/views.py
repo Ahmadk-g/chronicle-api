@@ -14,6 +14,7 @@ class AttendingList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class AttendingDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, edit, or delete an attending record if you own it.

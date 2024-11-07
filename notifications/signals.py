@@ -5,6 +5,7 @@ from followers.models import Follower
 from likes.models import Like
 from comments.models import Comment
 from posts.models import Post
+from attendings.models import Attending
 
 @receiver(post_save, sender=Follower)
 def create_follower_notification(sender, instance, created, **kwargs):
@@ -34,3 +35,23 @@ def create_comment_notification(sender, instance, created, **kwargs):
             notification_type='comment',
             post=instance.post,
         )
+
+@receiver(post_save, sender=Attending)
+def create_attendance_notification(sender, instance, created, **kwargs):
+    if created:
+        # New attendance status, create notification
+        Notification.objects.create(
+            owner=instance.event.owner,
+            notifier=instance.owner,
+            notification_type=instance.status,
+            event=instance.event,
+        )
+    else:
+        # Check if the status has changed
+        if getattr(instance, '_status_changed', False):
+            Notification.objects.create(
+                owner=instance.event.owner,
+                notifier=instance.owner,
+                notification_type=instance.status,
+                event=instance.event,
+            )

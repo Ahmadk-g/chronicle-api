@@ -29,3 +29,14 @@ class Attending(models.Model):
 
     def __str__(self):
         return f'{self.owner} {self.event} {self.status}'
+
+    def save(self, *args, **kwargs):
+        # Check if the instance is being updated and the status has changed
+        if self.pk is not None:
+            previous = Attending.objects.get(pk=self.pk)
+            if previous.status != self.status:
+                self._status_changed = True  # Set a flag to track status change
+        else:
+            self._status_changed = False  # New instance, no change yet
+
+        super().save(*args, **kwargs)
