@@ -62,7 +62,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-ahmadkg-chronicleapi-bnwqqd6qxox.ws.codeinstitute-ide.net', 'chronicle-api-8dba6c70f37d.herokuapp.com']
+ALLOWED_HOSTS = ['8000-ahmadkg-chronicleapi-bnwqqd6qxox.ws.codeinstitute-ide.net', os.environ.get('ALLOWED_HOST'),]
 
 
 # Application definition
