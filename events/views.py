@@ -4,6 +4,8 @@ from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Event
 from .serializers import EventSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 class EventList(generics.ListCreateAPIView):
