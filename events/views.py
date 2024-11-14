@@ -31,3 +31,13 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
         attending_count=Count(
             'attendings', filter=models.Q(attendings__status='attending'))
     ).order_by('-created_at')
+
+
+class CategoryChoicesView(APIView):
+    """
+    API endpoint to retrieve the category choices for the Event model.
+    """
+    def get(self, request):
+        # Return the CATEGORY_CHOICES as a JSON response
+        categories = Event.CATEGORY_CHOICES
+        return Response(categories)
