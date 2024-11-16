@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Event
+from attendings.models import Attending
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -7,6 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    attendance_id = serializers.SerializerMethodField()
     interested_count = serializers.ReadOnlyField()
     attending_count = serializers.ReadOnlyField()
 
@@ -34,6 +36,15 @@ class EventSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_attendance_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            attending = Attending.objects.filter(
+                owner=user, event=obj
+            ).first()
+            return attending.id if attending else None
+        return None
+
     def to_representation(self, instance):
         """
         Override the default `to_representation` method to customize
@@ -56,5 +67,5 @@ class EventSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'title', 'description', 'image', 'ticket_price',
             'event_date', 'start_time', 'end_time', 'category',
-            'location', 'interested_count', 'attending_count'
+            'location', 'attendance_id','interested_count', 'attending_count'
         ]
