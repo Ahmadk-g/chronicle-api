@@ -47,10 +47,18 @@ class EventSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         """
-        Override the default `to_representation` method to customize
-        how ticket_price is represented.
+        Override the default `to_representation` method to:
+        Format how ticket_price is represented.
+        Format start_time, end_time, and event_date.
         """
         representation = super().to_representation(instance)
+
+        # Format start_time and end_time to 'HH:MM'
+        representation['start_time'] = instance.start_time.strftime("%H:%M") if instance.start_time else None
+        representation['end_time'] = instance.end_time.strftime("%H:%M") if instance.end_time else None
+
+        # Format event_date to 'DD MMM YYYY'
+        representation['event_date'] = instance.event_date.strftime("%d %b %Y") if instance.event_date else None
 
         # Modify the ticket_price field
         if instance.ticket_price == 0.00:
