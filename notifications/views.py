@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 from .models import Notification
 from .serializers import NotificationSerializer
 
@@ -28,3 +29,17 @@ class NotificationDetail(generics.RetrieveDestroyAPIView):
             notification.is_read = True
             notification.save()
         return notification
+
+
+class MarkAllNotificationsAsRead(generics.GenericAPIView):
+    """
+    Mark all notifications for the logged-in user as read.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = NotificationSerializer
+
+    def patch(self, request, *args, **kwargs):
+        notifications = Notification.objects.filter(owner=request.user, is_read=False)
+        notifications.update(is_read=True)
+
+        return Response({"message": "All notifications marked as read."})
