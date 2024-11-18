@@ -60,17 +60,12 @@ class EventSerializer(serializers.ModelSerializer):
         # Format event_date to 'DD MMM YYYY'
         representation['event_date'] = instance.event_date.strftime("%d %b %Y") if instance.event_date else None
 
-         # Provide event_date in the format 'YYYY-MM-DD' for the input field
-        representation['event_date_input'] = instance.event_date.strftime("%Y-%m-%d") if instance.event_date else None
-
         # Modify the ticket_price field
         if instance.ticket_price == 0.00:
             representation['ticket_price'] = "Free"
-            representation['ticket_price_input'] = 0  # For input, it should be "0"
 
         else:
             representation['ticket_price'] = f"€{instance.ticket_price:.2f}"
-            representation['ticket_price_input'] = instance.ticket_price  # For input, it's just the number (10.00)
 
 
         return representation
