@@ -63,10 +63,8 @@ class EventSerializer(serializers.ModelSerializer):
         # Modify the ticket_price field
         if instance.ticket_price == 0.00:
             representation['ticket_price'] = "Free"
-
         else:
             representation['ticket_price'] = f"€{instance.ticket_price:.2f}"
-
 
         return representation
 
@@ -77,6 +75,5 @@ class EventSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'title', 'description', 'image', 'ticket_price',
             'event_date', 'start_time', 'end_time', 'category',
-            'location', 'attendance_id','interested_count', 'attending_count',
-            'event_date_input', 'ticket_price_input'
+            'location', 'attendance_id','interested_count', 'attending_count'
         ]
