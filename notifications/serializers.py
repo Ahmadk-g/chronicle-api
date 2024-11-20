@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Notification
 
@@ -9,6 +10,10 @@ class NotificationSerializer(serializers.ModelSerializer):
     notifier_id = serializers.ReadOnlyField(source='notifier.profile.id')
     post_image = serializers.ReadOnlyField(source='post.image.url')
     event_image = serializers.ReadOnlyField(source='event.image.url')
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
 
     class Meta:
         model = Notification
