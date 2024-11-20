@@ -52,21 +52,35 @@ def create_comment_notification(sender, instance, created, **kwargs):
                 post=instance.post,
             )
 
-
 @receiver(post_save, sender=Attending)
 def create_update_attendance_notification(sender, instance, created, **kwargs):
-    if created or getattr(instance, '_status_changed', False):
-        # Delete existing notifications for the event by the same notifier
-        Notification.objects.filter(
-            owner=instance.event.owner,
-            notifier=instance.owner,
-            event=instance.event
-        ).delete()
-
-        # Create a new notification based on the new status
+    if created:
+        # Only create a notification if it's a new record
         Notification.objects.create(
             owner=instance.event.owner,
             notifier=instance.owner,
             notification_type=instance.status,
             event=instance.event,
         )
+    elif getattr(instance, '_status_changed', False):
+        # Handle status updates (delete old notification and create a new one)
+        Notification.objects.filter(
+            owner=instance.event.owner,
+            notifier=instance.owner,
+            event=instance.event
+        ).delete()
+
+        Notification.objects.create(
+            owner=instance.event.owner,
+            notifier=instance.owner,
+            notification_type=instance.status,
+            event=instance.event,
+        )
+
+@receiver(post_delete, sender=Attending)
+def delete_attendance_notification(sender, instance, **kwargs):
+    Notification.objects.filter(
+        owner=instance.event.owner,
+        notifier=instance.owner,
+        event=instance.event
+    ).delete()
