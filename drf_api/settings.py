@@ -151,8 +151,7 @@ if 'DEV' in os.environ:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
-        'CONN_MAX_AGE': 60  # Set connection reuse period
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
 
 # Password validation
