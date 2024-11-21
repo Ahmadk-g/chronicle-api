@@ -20,7 +20,7 @@ def create_follower_notification(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=Follower)
 def delete_follow_notification(sender, instance, **kwargs):
-    # Delete the "like" notification when a like is removed
+    # Delete the "follow" notification when a follow is removed
     Notification.objects.filter(
         owner=instance.followed,
         notifier=instance.owner,
@@ -61,6 +61,15 @@ def create_comment_notification(sender, instance, created, **kwargs):
                 notification_type='comment',
                 post=instance.post,
             )
+
+@receiver(post_delete, sender=Comment)
+def delete_comment_notification(sender, instance, **kwargs):
+    Notification.objects.filter(
+        owner=instance.post.owner,
+        notifier=instance.owner,
+        notification_type='comment',
+        post=instance.post
+    ).delete()
 
 @receiver(post_save, sender=Attending)
 def create_update_attendance_notification(sender, instance, created, **kwargs):
