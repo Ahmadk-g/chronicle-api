@@ -18,6 +18,16 @@ def create_follower_notification(sender, instance, created, **kwargs):
         )
 
 
+@receiver(post_delete, sender=Follower)
+def delete_follow_notification(sender, instance, **kwargs):
+    # Delete the "like" notification when a like is removed
+    Notification.objects.filter(
+        owner=instance.followed,
+        notifier=instance.owner,
+        notification_type='follow',
+    ).delete()
+
+
 @receiver(post_save, sender=Like)
 def create_like_notification(sender, instance, created, **kwargs):
     if created:
