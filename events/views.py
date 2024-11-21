@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Count
 from rest_framework import generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Event
 from .serializers import EventSerializer
@@ -18,6 +19,16 @@ class EventList(generics.ListCreateAPIView):
         attending_count=Count(
             'attendings', filter=models.Q(attendings__status='attending'))
     ).order_by('-created_at')
+
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+
+    filterset_fields = [
+        'owner__followed__owner__profile',
+        'attendings__owner__profile',
+        'owner__profile',
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
