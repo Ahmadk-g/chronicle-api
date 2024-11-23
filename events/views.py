@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Count
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Event
@@ -21,6 +21,7 @@ class EventList(generics.ListCreateAPIView):
     ).order_by('-created_at')
 
     filter_backends = [
+        filters.SearchFilter,
         DjangoFilterBackend,
     ]
 
@@ -28,6 +29,11 @@ class EventList(generics.ListCreateAPIView):
         'owner__followed__owner__profile',
         'attendings__owner__profile',
         'owner__profile',
+    ]
+
+    search_fields = [
+        'owner__username',
+        'title',
     ]
 
     def perform_create(self, serializer):
