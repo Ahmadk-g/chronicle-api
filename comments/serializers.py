@@ -1,3 +1,5 @@
+from datetime import timedelta
+from django.utils.timezone import now
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Comment
@@ -16,10 +18,24 @@ class CommentSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     def get_created_at(self, obj):
-        return naturaltime(obj.created_at)
+        time_diff = now() - obj.created_at
+        if time_diff >= timedelta(weeks=1):
+            weeks = time_diff.days // 7
+            return f"{weeks} week{'s' if weeks > 1 else ''} ago"
+        elif time_diff >= timedelta(days=1):
+            return f"{time_diff.days} day{'s' if time_diff.days > 1 else ''} ago"
+        else:
+            return naturaltime(obj.created_at)
     
     def get_updated_at(self, obj):
-        return naturaltime(obj.updated_at)
+        time_diff = now() - obj.updated_at
+        if time_diff >= timedelta(weeks=1):
+            weeks = time_diff.days // 7
+            return f"{weeks} week{'s' if weeks > 1 else ''} ago"
+        elif time_diff >= timedelta(days=1):
+            return f"{time_diff.days} day{'s' if time_diff.days > 1 else ''} ago"
+        else:
+            return naturaltime(obj.updated_at)
 
     class Meta:
         model = Comment

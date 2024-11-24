@@ -1,3 +1,5 @@
+from datetime import timedelta
+from django.utils.timezone import now
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Notification
@@ -12,8 +14,21 @@ class NotificationSerializer(serializers.ModelSerializer):
     event_image = serializers.ReadOnlyField(source='event.image.url')
     created_at = serializers.SerializerMethodField()
 
+    # def get_created_at(self, obj):
+    #     return naturaltime(obj.created_at)
+
     def get_created_at(self, obj):
-        return naturaltime(obj.created_at)
+        time_diff = now() - obj.created_at
+        if time_diff >= timedelta(weeks=1):
+            # Return a rounded weeks output for over 1 week
+            weeks = time_diff.days // 7
+            return f"{weeks} week{'s' if weeks > 1 else ''} ago"
+        elif time_diff >= timedelta(days=1):
+            # Return a rounded days output for over 1 day
+            return f"{time_diff.days} day{'s' if time_diff.days > 1 else ''} ago"
+        else:
+            # For less than 1 day, fallback to the standard naturaltime
+            return naturaltime(obj.created_at)
 
     class Meta:
         model = Notification
