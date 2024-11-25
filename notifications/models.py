@@ -32,7 +32,7 @@ class Notification(models.Model):
         on_delete=models.CASCADE
     )
     notification_type = models.CharField(
-        max_length=10, choices=NOTIFICATION_TYPES)
+        max_length=20, choices=NOTIFICATION_TYPES)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, null=True, blank=True)
     event = models.ForeignKey(
