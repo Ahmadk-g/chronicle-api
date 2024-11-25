@@ -241,34 +241,6 @@ The Posts model powers user-generated content, forming the heart of social inter
 The Posts model fosters user engagement by supporting rich, interactive content.
 
 
-### <u>**Notification Model**</u>
-The Notification model tracks user activity, ensuring important events are highlighted and delivered efficiently.
-
-**Key Features:**
-
-1. **Action Tracking**: Logs actions like likes, comments, interests, attendings and follows.
-2. **Ownership**: Each notification is tied to its recipient and originator.
-3. **Status Management**: Differentiates between read and unread notifications.
-
-**Fields:**
-
-| Field | Attribute | Description |
-|-------|-----------|-------------|
-| id | BigAutoField | Unique identifier for each notification. |
-| owner | ForeignKey | Recipient of the notification. |
-| notifier | ForeignKey | User who triggered the notification. |
-| notification_type | CharField | Action type (e.g., like, comment, follow). |
-| post | ForeignKey | Optional link to a related post. |
-| event | ForeignKey | Optional link to a related event. |
-| is_read | BooleanField | Indicates if the notification has been read. |
-| created_at | DateTimeField | Timestamp for when the notification was generated. |
-
-**Advantages**:
-
-- **Engagement**: Ensures users stay informed about platform activity.
-- **Organization**: Centralizes user interactions for better accessibility.
-
-
 ### <u>**Comments Model**</u>
 
 The Comments model enables users to discuss and share feedback on posts.
@@ -306,11 +278,12 @@ The Likes model tracks user appreciation for posts.
 
 | Field       | Attribute    | Description |
 |-------------|--------------|----------------|
-| id | BigAutoField | Unique identifier for each like.                           |
-| owner | ForeignKey | User who liked the post.                                    |
+| id | BigAutoField | Unique identifier for each like. |
+| owner | ForeignKey | User who liked the post. |
 | post | ForeignKey | Targeted post. |
 
 The Likes model is simple but essential for measuring user interaction.
+
 
 ### <u>**Events Model**</u>
 
@@ -338,32 +311,6 @@ The Events model powers the creation, management, and promotion of events within
 | updated_at | DateTimeField | Tracks the most recent updates to the event. |
 
 The Events model serves as a hub for gathering users and building an active community.
-
-### <u>**Followers Model**</u>
-The Followers model enables social connectivity by allowing users to follow others, fostering a sense of community.
-
-**Key Features:**
-
-1. **Relationship Management**: Tracks "following" and "follower" relationships.
-2. **User Engagement**: Encourages networking and interaction through follow notifications.
-
-**Fields:**
-
-
-| Field       | Attribute      | Description |
-|-------------|----------------|-------------|
-| id | BigAutoField | Unique identifier for each follow record. |
-| owner | ForeignKey | User who is following another user.|
-| follwed | ForeignKey | User who is being followed. |
-| created_at | DateTimeField  | Timestamp for when the follow relationship was created. |
-
-**Advantages:**
-
-- **Community Building**: Promotes connections and strengthens user relationships.
-- **Personalized Feeds**: Enables content curation based on followed users.
-
-
-The Followers model is a cornerstone for social interaction, driving engagement through connections.
 
 
 ### <u>**Attendings Model**</u>
@@ -393,8 +340,183 @@ The Attendings model tracks user participation in events, ensuring a streamlined
 The Attendings model ensures seamless tracking of user participation in events, driving community engagement.
 
 
+### <u>**Followers Model**</u>
+The Followers model enables social connectivity by allowing users to follow others, fostering a sense of community.
+
+**Key Features:**
+
+1. **Relationship Management**: Tracks "following" and "follower" relationships.
+2. **User Engagement**: Encourages networking and interaction through follow notifications.
+
+**Fields:**
 
 
+| Field       | Attribute      | Description |
+|-------------|----------------|-------------|
+| id | BigAutoField | Unique identifier for each follow record. |
+| owner | ForeignKey | User who is following another user.|
+| follwed | ForeignKey | User who is being followed. |
+| created_at | DateTimeField  | Timestamp for when the follow relationship was created. |
+
+**Advantages:**
+
+- **Community Building**: Promotes connections and strengthens user relationships.
+- **Personalized Feeds**: Enables content curation based on followed users.
 
 
+The Followers model is a cornerstone for social interaction, driving engagement through connections.
 
+### <u>**Notification Model**</u>
+The Notification model tracks user activity, ensuring important events are highlighted and delivered efficiently.
+
+**Key Features:**
+
+1. **Action Tracking**: Logs actions like likes, comments, interests, attendings and follows.
+2. **Ownership**: Each notification is tied to its recipient and originator.
+3. **Status Management**: Differentiates between read and unread notifications.
+
+**Fields:**
+
+| Field | Attribute | Description |
+|-------|-----------|-------------|
+| id | BigAutoField | Unique identifier for each notification. |
+| owner | ForeignKey | Recipient of the notification. |
+| notifier | ForeignKey | User who triggered the notification. |
+| notification_type | CharField | Action type (e.g., like, comment, follow). |
+| post | ForeignKey | Optional link to a related post. |
+| event | ForeignKey | Optional link to a related event. |
+| is_read | BooleanField | Indicates if the notification has been read. |
+| created_at | DateTimeField | Timestamp for when the notification was generated. |
+
+**Advantages**:
+
+- **Engagement**: Ensures users stay informed about platform activity.
+- **Organization**: Centralizes user interactions for better accessibility.
+
+
+# API Endpoints
+
+This section outlines the RESTful `API endpoints` for the Chronicle app. Each endpoint is categorized based on the corresponding app or functionality, detailing the HTTP methods, URLs, and descriptions of the available operations.
+
+
+### Root API Endpoint
+The Root API endpoint provides an entry point to the application and returns a message.
+
+| Method | Endpoint  | Description |
+|--------|-----------|-------------|
+| GET    | `/`         | Returns general Root route, with message: "welcomes to the Chronicle API" |
+
+
+### User API Endpoints
+
+Endpoints related to user authentication, registration, and management.
+
+| Method  | Endpoint | Description |
+|---------|----------------------|------------------------------|
+| GET     | `admin/`                      | Django admin interface |
+| POST    | `/dj-rest-auth/login/`        | User login |
+| POST    | `/dj-rest-auth/logout/`       | Log out the current user and invalidate their token. |
+| GET     | `/dj-rest-auth/user/`         | Retrieve details of the authenticated user. |
+| PUT     | `/dj-rest-auth/user/`         | Update current user details. |
+| POST    | `/dj-rest-auth/registration/` | User registration. |
+
+
+### Profile API Endpoints
+
+Endpoints to manage user profiles.
+
+| Method  | Endpoint | Description |
+|---------|-----------------------|--------------------|
+| GET     | `/profiles/`          | List all profiles. |
+| GET     | `/profiles/<id>/`     | Retrieve the details of a specific profile by ID. |
+| PUT     | `/profiles/<id>/`     | Update a specific profile (requires authorization). |
+| POST    | `/profiles/<id>/` | Upload or update the profile image for a user. |
+
+
+### Post API Endpoints
+
+Endpoints for creating, reading, updating, and deleting posts.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|------------------------------------------|
+| GET     | `/posts/`             |  Retrieve a list of all posts. |
+| POST    | `/posts/`             | Create a new post. |
+| GET     | `/posts/<id>/`        | Retrieve details of a specific post. |
+| PUT     | `/posts/<id>/`        | Update a specific post (requires ownership). |
+| DELETE  | `/posts/<id>/`        | Delete a specific post (requires ownership). |
+
+
+### Comment API Endpoints
+
+Endpoints to handle comments on posts.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|-------------------------------------------|
+| GET     | `/comments/`            | Retrieve a list of all comments. |
+| POST    | `/comments/`            | Create a new comment on a post. |
+| GET     | `/comments/<id>/`       | Retrieve details of a specific comment. |
+| PUT     | `/comments/<id>/`       | Update a specific comment (requires ownership). |
+| DELETE  | `/comments/<id>/`       | Delete a specific comment (requires ownership). |          
+
+
+### Like API Endpoints
+
+Endpoints for liking or unliking posts.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|-------------------------------------|
+| Get    | `/likes/`               | List all likes. |
+| POST   | `/likes/`               | Like a post (requires post ID in request body). |
+| Get    | `/likes/<id>/`          | Retrieve a specific like |
+| DELETE  | `/likes/<id>/`         | Remove a specific like (requires ownership). |
+
+
+### Followers API Endpoints
+
+Endpoints for managing "following" relationships between users.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|--------------------------------|
+| GET     | `/followers/`           | Retrieve a list of all followers. |
+| POST    | `/followers/`           | Follow a user (requires followed user ID in request body). |
+| GET     | `/followers/<id>`       | Retrieve a follower relationship. |
+| DELETE  | `/followers/<id>/`      | Unfollow a user (requires ownership of the follow relationship). |
+
+
+### Events API Endpoints
+
+Endpoints to create, read, update, and delete events.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|--------------------------------|
+| GET     | `/events/`            | Retrieve a list of all events. |
+| POST    | `/events/`            | Create a new event. |
+| GET     | `/events/<id>/`       | Retrieve details of a specific event. |
+| PUT     | `/events/<id>/`       | Update a specific event (requires ownership). |
+| DELETE  | `/events/<id>/`       | Delete a specific event (requires ownership). |
+
+
+### Attendings API Endpoints
+
+Endpoints to manage attendance for events.
+
+| Method  | Endpoint              | Description |
+|---------|-----------------------|-----------------------------|
+| GET     | `/attendings/`          | Retrieve a list of all attendings. |
+| POST    | `/attendings/`          | Mark attendance for an event (requires event ID in request body). |
+| GET     | `/attendings/`          | Retrieve a specific attendings model. |
+| Put     | `/attendings/<id>/`     | Update attendings status (requires ownership). |
+| DELETE  | `/attendings/<id>/`     | Remove an attendance record (requires ownership). |
+
+
+### Notifications API Endpoints
+
+Endpoints to manage user notifications.
+
+| Method  | Endpoint                | Description |
+|---------|-------------------------|----------------------------------------------------------------------------|
+| GET     | `/notifications/`                 | Retrieve a list of all notifications for the authenticated user.          |
+| GET     | `/notifications/<id>/`            | Retrieve details of a specific notification by ID.                        |
+| PUT     | `/notifications/mark-all-as-read/`| Mark all notifications as read.                                      |
+| DELETE  | `/notifications/<id>/`            | Delete a specific notification by ID.                                      |
+| POST    | `/notifications/`                 | Create a new notification (usually triggered by specific events in the app). |
