@@ -88,7 +88,7 @@ The following tables provides the results of manual testing conducted on various
 | `/notifications/<id>/` | GET | Retrieves details of a specific notification. | Pass |
 | `/notifications/` | POST | Creates a new notification. | Pass |
 | `/notifications/<id>/` | DELETE | Deletes a specific notification. | Pass |
-| `/notifications/mark-all-as-read/` | PUT  | Marks all notifications as read. | Pass |
+| `/notifications/mark-all-as-read/` | PATCH  | Marks all notifications as read. | Pass |
 
 <br>
 
@@ -134,3 +134,113 @@ After executing the tests, the terminal will display the results, where a series
 The following image shows the results of all the automated tests:
 
 ![Automated Testing](documentation/testing/autotesting.png)
+
+
+# Validator Testing
+
+## Python Validation
+
+[PEP8 CI Linter](https://pep8ci.herokuapp.com/) provided by the Code Institute according to the PEP 8 style guide for validating the Python code.
+
+### drf_api - Project Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|asgi.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/asgi.png) </details> | No Errors
+|permissions.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/permissions.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/serializers.png) </details> | No Errors
+|settings.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/settings.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/drf_api/views.png) </details> | No Errors
+
+
+### Attendings - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/serializers.png) </details> | No Errors
+|tests.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/tests.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/attendings/views.png) </details> | No Errors
+
+
+### Comments - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/comments/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/comments/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/comments/serializers.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/comments/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/comments/views.png) </details> | No Errors
+
+
+### Events - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/serializers.png) </details> | No Errors
+|tests.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/tests.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/events/views.png) </details> | No Errors
+
+
+### Followers - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/followers/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/followers/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/followers/serializers.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/followers/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/followers/views.png) </details> | No Errors
+
+### Likes - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/serializers.png) </details> | No Errors
+|tests.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/tests.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/likes/views.png) </details> | No Errors
+
+
+### Notifications - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/serializers.png) </details> | No Errors
+|signals.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/signals.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/notifications/views.png) </details> | No Errors
+
+
+### Posts - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/serializers.png) </details> | No Errors
+|tests.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/tests.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/posts/views.png) </details> | No Errors
+
+
+### Profiles - App Module Python Validation Results
+
+Python File | Results | Comment |
+|------------|------------------------------|--------------------------------------|
+|admin.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/admin.png) </details> | No Errors
+|models.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/models.png) </details> | No Errors
+|serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/serializers.png) </details> | No Errors
+|urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/urls.png) </details> | No Errors
+|views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/views.png) </details> | No Errors
