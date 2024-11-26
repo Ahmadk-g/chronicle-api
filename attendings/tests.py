@@ -118,7 +118,9 @@ class AttendingDetailViewTests(APITestCase):
         """
         self.client.login(username='adam', password='pass')
         response = self.client.put(f'/attendings/{self.attending_by_adam.id}/', {
-            'status': 'interested'
+            'status': 'interested',
+            'owner': self.adam.id,
+            'event': self.event.id,
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.attending_by_adam.refresh_from_db()
