@@ -520,3 +520,42 @@ Endpoints to manage user notifications.
 | PUT     | `/notifications/mark-all-as-read/`| Mark all notifications as read.                                      |
 | DELETE  | `/notifications/<id>/`            | Delete a specific notification by ID.                                      |
 | POST    | `/notifications/`                 | Create a new notification (usually triggered by specific events in the app). |
+
+<br>
+
+# Frameworks, Libraries, and Dependencies
+
+The project leverages a robust stack of frameworks and libraries to provide efficient, scalable, and feature-rich functionality. Below is a detailed list of the major frameworks and dependencies used:
+
+### Core Frameworks
+- **Django** (v3.2.25): A high-level Python web framework that simplifies the development of secure and scalable web applications.
+- **Django REST Framework** (v3.12.4): A powerful and flexible toolkit for building Web APIs.
+- **Django Allauth** (v0.54.0): Integrated tools for handling user authentication, registration, and account management.
+
+### API and Authentication
+- **dj-rest-auth** (v2.1.9): Provides a RESTful API for Django authentication, including features like login, registration, and password management.
+- **Djangorestframework-simplejwt** (v5.3.1): Implements JSON Web Token (JWT) authentication for secure API access.
+- **OAuthlib** (v3.2.2) & Requests-OAuthlib (v2.0.0): Libraries used for handling OAuth flows for third-party authentication.
+
+### Cloud Services
+- **Cloudinary**(v1.41.0): Enables easy management of image and video uploads to the cloud.
+- **Django-Cloudinary-Storage** (v0.3.0): Facilitates the integration of Cloudinary as the default media storage backend for Django applications.
+
+### Database and ORM
+- **dj-database-url** (v0.5.0): Simplifies database configuration from a single URL.
+- **psycopg2** (v2.9.10): A PostgreSQL adapter for Python, providing efficient interaction with PostgreSQL databases.
+- **SQLParse** (v0.5.1): A non-validating SQL parser used internally by Django.
+
+### Utilities
+- **Django Filter** (v2.4.0): Provides easy filtering options for querying data in Django REST APIs.
+- **Django CORS Headers** (v4.5.0): Handles Cross-Origin Resource Sharing (CORS) requests, ensuring secure interaction between frontend and backend systems.
+- **Pillow** (v11.0.0): A Python Imaging Library (PIL) fork used for handling image processing tasks like resizing and formatting.
+- **Pytz** (v2024.2): Adds support for accurate and up-to-date timezone handling.
+- **Setuptools** (v69.5.1): Simplifies the process of packaging and distributing Python projects.
+- **asgiref** (v3.8.1): Provides asynchronous server gateway interface (ASGI) support, enabling real-time features and efficient request handling.
+
+### Deployment
+- **Gunicorn** (v23.0.0): A Python WSGI HTTP server for running the application in production environments.
+Asynchronous Support
+
+
