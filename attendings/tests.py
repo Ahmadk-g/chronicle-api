@@ -12,7 +12,8 @@ class AttendingListViewTests(APITestCase):
         Create test users and events for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.event = Event.objects.create(
             owner=self.adam,
             title='Test Event',
@@ -28,7 +29,8 @@ class AttendingListViewTests(APITestCase):
         """
         Ensure that the list of attendings can be retrieved.
         """
-        Attending.objects.create(owner=self.adam, event=self.event, status='attending')
+        Attending.objects.create(
+                owner=self.adam, event=self.event, status='attending')
         response = self.client.get('/attendings/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 4)
@@ -55,18 +57,22 @@ class AttendingListViewTests(APITestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_user_cannot_create_multiple_attending_records_for_same_event(self):
+    def test_user_cannot_create_multiple_attending_marks_for_same_event(self):
         """
-        Ensure that a user cannot mark attendance multiple times for the same event.
+        Ensure that a user cannot mark attendance
+        multiple times for the same event.
         """
         self.client.login(username='adam', password='pass')
         # First attendance record
-        self.client.post('/attendings/', {'event': self.event.id, 'status': 'attending'})
+        self.client.post('/attendings/', {'event': self.event.id,
+                                          'status': 'attending'})
         # Second attendance record for the same event
-        response = self.client.post('/attendings/', {'event': self.event.id, 'status': 'attending'})
+        response = self.client.post('/attendings/', {'event': self.event.id,
+                                                     'status': 'attending'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('detail', response.data)
-        self.assertEqual(response.data['detail'], 'You have already marked attendance for this event.')
+        self.assertEqual(response.data['detail'],
+                         'You have already marked attendance for this event.')
 
 
 class AttendingDetailViewTests(APITestCase):
@@ -75,7 +81,8 @@ class AttendingDetailViewTests(APITestCase):
         Create test users, events, and attending records for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.event = Event.objects.create(
             owner=self.adam,
             title='Test Event',
@@ -117,11 +124,13 @@ class AttendingDetailViewTests(APITestCase):
         Ensure the owner can update their attendance status.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.put(f'/attendings/{self.attending_by_adam.id}/', {
-            'status': 'interested',
-            'owner': self.adam.id,
-            'event': self.event.id,
-        })
+        response = self.client.put(
+            f'/attendings/{self.attending_by_adam.id}/', {
+              'status': 'interested',
+              'owner': self.adam.id,
+              'event': self.event.id,
+            }
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.attending_by_adam.refresh_from_db()
         self.assertEqual(self.attending_by_adam.status, 'interested')
@@ -131,9 +140,11 @@ class AttendingDetailViewTests(APITestCase):
         Ensure a non-owner cannot update someone else's attendance status.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.put(f'/attendings/{self.attending_by_brian.id}/', {
-            'status': 'attending'
-        })
+        response = self.client.put(
+            f'/attendings/{self.attending_by_brian.id}/', {
+              'status': 'attending'
+            }
+        )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_owner_can_delete_their_attending_record(self):
@@ -141,7 +152,8 @@ class AttendingDetailViewTests(APITestCase):
         Ensure that the owner of an attendance record can delete it.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.delete(f'/attendings/{self.attending_by_adam.id}/')
+        response = self.client.delete(
+            f'/attendings/{self.attending_by_adam.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Attending.objects.count(), 1)
 
@@ -150,12 +162,14 @@ class AttendingDetailViewTests(APITestCase):
         Ensure that a non-owner cannot delete someone else's attendance record.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.delete(f'/attendings/{self.attending_by_brian.id}/')
+        response = self.client.delete(
+            f'/attendings/{self.attending_by_brian.id}/')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_not_logged_in_cannot_delete_attending_record(self):
         """
         Ensure that unauthenticated users cannot delete attendance records.
         """
-        response = self.client.delete(f'/attendings/{self.attending_by_adam.id}/')
+        response = self.client.delete(
+            f'/attendings/{self.attending_by_adam.id}/')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

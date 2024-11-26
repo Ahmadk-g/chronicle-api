@@ -12,7 +12,8 @@ class LikeListViewTests(APITestCase):
         Create two users and one post for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.post = Post.objects.create(
             owner=self.adam,
             title='Test Post',
@@ -61,7 +62,8 @@ class LikeDetailViewTests(APITestCase):
         Create two users, one post, and one like for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.post = Post.objects.create(
             owner=self.adam,
             title='Test Post',

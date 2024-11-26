@@ -11,7 +11,8 @@ class EventListViewTests(APITestCase):
         Create test users and events for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.event = Event.objects.create(
             owner=self.adam,
             title='Test Event',
@@ -73,7 +74,8 @@ class EventDetailViewTests(APITestCase):
         Create test users and events for testing.
         """
         self.adam = User.objects.create_user(username='adam', password='pass')
-        self.brian = User.objects.create_user(username='brian', password='pass')
+        self.brian = User.objects.create_user(username='brian',
+                                              password='pass')
         self.event = Event.objects.create(
             owner=self.adam,
             title='Test Event',

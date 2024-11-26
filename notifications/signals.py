@@ -67,7 +67,7 @@ def delete_like_notification(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Comment)
 def create_comment_notification(sender, instance, created, **kwargs):
-    try: 
+    try:
         if created:
             # Check if the comment owner is not the same as the post owner
             if instance.owner != instance.post.owner:
@@ -93,6 +93,7 @@ def delete_comment_notification(sender, instance, **kwargs):
     except Exception as e:
         logger.error(f"Failed to delete comment notification: {e}")
 
+
 @receiver(post_save, sender=Attending)
 def create_update_attendance_notification(sender, instance, created, **kwargs):
     try:
@@ -105,7 +106,7 @@ def create_update_attendance_notification(sender, instance, created, **kwargs):
                 event=instance.event,
             )
         elif getattr(instance, '_status_changed', False):
-            # Handle status updates (delete old notification and create a new one)
+            # Handle status updates (delete old notification and create new)
             Notification.objects.filter(
                 owner=instance.event.owner,
                 notifier=instance.owner,
@@ -119,7 +120,8 @@ def create_update_attendance_notification(sender, instance, created, **kwargs):
                 event=instance.event,
             )
     except Exception as e:
-        logger.error(f"Failed to create or update attendance notification: {e}")
+        logger.error(f"Failed to create/update attendance notification: {e}")
+
 
 @receiver(post_delete, sender=Attending)
 def delete_attendance_notification(sender, instance, **kwargs):

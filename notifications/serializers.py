@@ -8,7 +8,8 @@ from .models import Notification
 class NotificationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     notifier_name = serializers.ReadOnlyField(source='notifier.username')
-    notifier_image = serializers.ReadOnlyField(source='notifier.profile.image.url')
+    notifier_image = serializers.ReadOnlyField(
+            source='notifier.profile.image.url')
     notifier_id = serializers.ReadOnlyField(source='notifier.profile.id')
     post_image = serializers.ReadOnlyField(source='post.image.url')
     event_image = serializers.ReadOnlyField(source='event.image.url')
@@ -25,7 +26,8 @@ class NotificationSerializer(serializers.ModelSerializer):
             return f"{weeks} week{'s' if weeks > 1 else ''} ago"
         elif time_diff >= timedelta(days=1):
             # Return a rounded days output for over 1 day
-            return f"{time_diff.days} day{'s' if time_diff.days > 1 else ''} ago"
+            days = time_diff.days
+            return f"{days} day{'s' if days > 1 else ''} ago"
         else:
             # For less than 1 day, fallback to the standard naturaltime
             return naturaltime(obj.created_at)
@@ -34,7 +36,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = [
             'id', 'owner', 'notifier_name', 'notifier_image',
-            'notifier_id','notification_type','post', 'event',
+            'notifier_id', 'notification_type', 'post', 'event',
             'post_image', 'event_image', 'is_read', 'created_at'
         ]
 

@@ -39,10 +39,12 @@ class MarkAllNotificationsAsRead(generics.GenericAPIView):
     serializer_class = NotificationSerializer
 
     def patch(self, request, *args, **kwargs):
-        notifications = Notification.objects.filter(owner=request.user, is_read=False)
-        
+        notifications = Notification.objects.filter(
+            owner=request.user, is_read=False)
+
         # Update the notifications to mark them as read
         updated_count = notifications.update(is_read=True)
 
         # Return response with the count of updated notifications
-        return Response({"message": f"All notifications marked as read. ({updated_count} notifications updated)"})
+        return Response({"message": f"All notifications marked as read." 
+                         f"({updated_count} notifications updated)"})
