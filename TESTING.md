@@ -90,3 +90,47 @@ The following tables provides the results of manual testing conducted on various
 | `/notifications/<id>/` | DELETE | Deletes a specific notification. | Pass |
 | `/notifications/mark-all-as-read/` | PUT  | Marks all notifications as read. | Pass |
 
+<br>
+
+# Automated Testing 
+
+Automated tests are a critical part of maintaining code quality and ensuring that features work as expected. In this project, automated testsn were for certain applications, but not all of them. Specifically, automated tests have been written for the following apps:
+
+- Posts
+- Likes
+- Events
+- Attendings
+
+However, Profiles and other components have undergone manual testing, as they do not yet have automated tests in place.
+
+**Running Tests**
+
+Automated tests can be executed via the Django testing framework using the following terminal command:
+
+```bash
+python manage.py test
+```
+
+This command runs all tests across the entire project, including those in any apps that have automated tests.
+or 
+
+**Running Tests for Specific Apps**
+
+To run tests for a specific app, you can specify the app name as follows:
+
+```bash
+python manage.py test <app_name>
+```
+
+For example, to run tests only for the `Events` app, you would use:
+
+```bash
+python manage.py test events
+```
+
+### Test Results
+After executing the tests, the terminal will display the results, where a series of dots (.) indicates successful tests, while any failures will be accompanied by detailed error messages explaining what went wrong.
+
+The following image shows the results of all the automated tests:
+
+![Automated Testing](documentation/testing/autotesting.png)
