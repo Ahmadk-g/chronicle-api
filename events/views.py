@@ -10,7 +10,10 @@ from rest_framework.views import APIView
 
 
 class EventList(generics.ListCreateAPIView):
-
+    """
+    List events or create a event if logged in
+    The perform_create method associates the event with the logged in user.
+    """
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Event.objects.annotate(
@@ -41,7 +44,9 @@ class EventList(generics.ListCreateAPIView):
 
 
 class EventDetail(generics.RetrieveUpdateDestroyAPIView):
-
+    """
+    Retrieve a post and edit or delete it if you own it.
+    """
     serializer_class = EventSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Event.objects.annotate(
@@ -57,6 +62,5 @@ class CategoryChoicesView(APIView):
     API endpoint to retrieve the category choices for the Event model.
     """
     def get(self, request):
-        # Return the CATEGORY_CHOICES as a JSON response
         categories = Event.CATEGORY_CHOICES
         return Response(categories)

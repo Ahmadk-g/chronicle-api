@@ -4,6 +4,10 @@ from attendings.models import Attending
 
 
 class EventSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Event model to handle event data representation and validation.
+    Includes additional fields for the owner, attendance, and counts.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -13,6 +17,7 @@ class EventSerializer(serializers.ModelSerializer):
     attending_count = serializers.ReadOnlyField()
 
     def validate_ticket_price(self, value):
+        """Validate that ticket price is non-negative."""
         if value is not None:
             if value < 0:
                 raise serializers.ValidationError(
@@ -20,6 +25,10 @@ class EventSerializer(serializers.ModelSerializer):
         return value
 
     def validate_image(self, value):
+        """
+        Validate that the image file is under 2MB and
+        its dimensions are within acceptable limits.
+        """
         if value.size > 2 * 1024 * 1024:
             raise serializers.ValidationError('Image size larger than 2MB!')
         if value.image.height > 4096:

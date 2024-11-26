@@ -6,6 +6,11 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Comment model.
+    Transforms Comment model instances into JSON format, including additional fields
+    like the owner's username, profile details, and human-readable timestamps.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -47,4 +52,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class CommentDetailSerializer(CommentSerializer):
+    """
+    Serializer for detailed Comment information, inheriting from CommentSerializer.
+    Adds the post ID to the serialized data.
+    """
     post = serializers.ReadOnlyField(source='post.id')
