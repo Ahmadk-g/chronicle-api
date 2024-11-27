@@ -55,10 +55,9 @@ The database schema leverages Django's ORM (Object-Relational Mapping) to establ
 
 Key entities in the schema include:
 
-- **User-related Models:** Managing profiles, social interactions, and notifications.
-- **Content-based Models:** Enabling posts, likes, and comments.
-- **Event-related Models:** Supporting event creation, attendance tracking, and notifications.
-- **Notifications:** Delivering real-time updates for likes, comments, follows, and event status changes.
+- **User-related Models:** Manage user profiles, social interactions (e.g., following), and notification preferences.
+- **Content-based Models:** Handle posts, likes, comments, event creation, and attendance tracking
+- **Notifications:** Delivering real-time updates for likes, comments, follows, and event attendances.
 
 ### **Entity Relationship Diagram (ERD**)
 The ERD visually maps out the relationships and dependencies among various entities in the system. It provides a clear representation of how users interact with posts, events, and other users, while also highlighting the notification and social engagement processes. This diagram acts as a blueprint for developers, making it easier to understand the data flow and identify key relationships within the application. [dbdiagram.io](https://dbdiagram.io) was utilized to design the ERD.
@@ -265,7 +264,7 @@ The Comments model enables users to discuss and share feedback on posts.
 The Comments model fosters communication, building vibrant discussions around user-generated content.
 
 
-### <u>**Liked Model**</u>
+### <u>**Likes Model**</u>
 
 The Likes model tracks user appreciation for posts.
 
@@ -413,7 +412,7 @@ Endpoints related to user authentication, registration, and management.
 
 | Method  | Endpoint | Description |
 |---------|----------------------|------------------------------|
-| GET     | `admin/`                      | Django admin interface |
+| GET     | `/admin/`                      | Django admin interface |
 | POST    | `/dj-rest-auth/login/`        | User login |
 | POST    | `/dj-rest-auth/logout/`       | Log out the current user and invalidate their token. |
 | GET     | `/dj-rest-auth/user/`         | Retrieve details of the authenticated user. |
@@ -430,7 +429,7 @@ Endpoints to manage user profiles.
 | GET     | `/profiles/`          | List all profiles. |
 | GET     | `/profiles/<id>/`     | Retrieve the details of a specific profile by ID. |
 | PUT     | `/profiles/<id>/`     | Update a specific profile (requires authorization). |
-| POST    | `/profiles/<id>/` | Upload or update the profile image for a user. |
+| PATCH    | `/profiles/<id>/` | Upload or update the profile image for a user. |
 
 
 ### Post API Endpoints
@@ -558,4 +557,84 @@ The project leverages a robust stack of frameworks and libraries to provide effi
 - **Gunicorn** (v23.0.0): A Python WSGI HTTP server for running the application in production environments.
 Asynchronous Support
 
+
+# Testing and Validation
+
+For all testing and validation, please refer to the [TESTING.md](TESTING.md) file.
+
+
+# Bugs
+
+### Fixed
+
+
+
+1. Fix for Duplicate Notifications in `signals.py`
+
+- **Location**:
+`Notification/signals.py`, responsible for automatically creating notifications for relevant model changes.
+
+- **Problem**: Attendance notifications could be duplicated if the same notifier updated their status for the same event multiple times, leading to redundant entries.
+
+- **Solution**: In the `create_update_attendance_notification` signal handler:
+  - Added a filter to delete any existing notifications for the same notifier, event, and status before creating a new one.
+  - This ensures only one notification exists per notifier and event at any given time.
+
+
+### Not Fixed
+
+1. In the **EventSerializer**, the `to_representation` method customizes how the `event_date` and `ticket_price` are displayed.
+
+- **Problem**: The custom formatting for `event_date` and `ticket_price` causes issues when trying to update an event (via a PUT request) in both the backend development database and the frontend form:
+
+  - `event_date` is formatted as 'DD MMM YYYY' for display but is not converted back to the expected format (YYYY-MM-DD) when updating.
+  - `ticket_price` is displayed as "Free" if it's 0.00, which doesn't match the expected format for the backend.
+
+This mismatch results in fields not being properly prefilled in the frontend and rejected updates in the backend.
+
+**Relevant Code**:
+```python
+def to_representation(self, instance):
+        """
+        Override the default `to_representation` method to:
+        Format how ticket_price is represented.
+        Format start_time, end_time, and event_date.
+        """
+        representation = super().to_representation(instance)
+
+        # Format event_date to 'DD MMM YYYY'
+        representation['event_date'] = (
+            instance.event_date.strftime("%d %b %Y")
+            if instance.event_date
+            else None
+        )
+
+        # Modify the ticket_price field
+        if instance.ticket_price == 0.00:
+            representation['ticket_price'] = "Free"
+        else:
+            representation['ticket_price'] = f"€{instance.ticket_price:.2f}"
+
+        return representation
+```
+
+# Future Features
+
+1. **Enhanced Location Filtering:**
+Introduce a structured location input (e.g., separate fields for country and city) to allow users to filter events more effectively based on geography.
+
+2. **Custom Event Categories:**
+Enable users to create custom event categories in addition to the predefined options, offering more flexibility for event organizers.
+
+3. **Image Resizing:**
+Implement automatic image resizing in the backend to allow users to upload any image size, while ensuring that images are optimized for storage and performance without sacrificing quality.
+
+4. **Favorites System:**
+Add a feature for users to mark events as favorites for easy access later.
+
+6. **Event Sharing:**
+Provide integration for sharing events on social media platforms or via direct links.
+
+7. **Advanced Search and Filtering:**
+Expand search capabilities with filters like date ranges, ticket prices, and event popularity.
 
