@@ -638,3 +638,108 @@ Provide integration for sharing events on social media platforms or via direct l
 7. **Advanced Search and Filtering:**
 Expand search capabilities with filters like date ranges, ticket prices, and event popularity.
 
+
+
+# Deployment
+
+The live link can be found here - [**Chronicle-API**](https://chronicle-api-8dba6c70f37d.herokuapp.com/)
+
+The [**Chronicle app**](https://chronicle-api-8dba6c70f37d.herokuapp.com/) uses the following tools and services to streamline its development, deployment, and ongoing management:
+
+### **GitHub**:
+A version control system that hosts the project repository, enabling efficient code management and collaboration among developers.
+
+### **GitPod**:
+A cloud-based integrated development environment (IDE) that provides a preconfigured workspace for coding and testing, ensuring a consistent and accessible development environment.
+
+### **CI Database** (PostgreSQL): 
+The Code Institute provides PostgreSQL-based database systems for students, offering reliable data storage and management during development and deployment. It supports advanced features like indexing, transactions, and concurrency, ensuring high performance and seamless integration with web frameworks like Django. The database offers a stable environment for students to develop and manage real-world applications.
+
+### **Heroku**: 
+A cloud platform as a service (PaaS) for hosting and deploying the application, offering automatic scaling, deployment, and management tools to ensure smooth application performance.
+
+__Steps for deployment with Heroku__:
+
+1. **Log into Heroku**: Navigate to the Heroku website and log into your account to access the dashboard.
+2. **Create a New App**: Click the "New" button in the top-right corner and select "Create New App" from the dropdown menu.
+3. **Give the App a Unique Name**: Choose a unique name for your app that will be used as part of the URL.
+4. **Select Your Region**: Choose the preferred region for your app, either "United States" or "Europe", from the dropdown menu.
+5. **Create the App**: After naming your app and selecting the region, click the "Create App" button to create the app.
+6. **Connect to GitHub**: In the app’s dashboard, go to the "Deploy" tab, scroll down to "Deploy Method", and select GitHub as the source. Connect your GitHub repository with Heroku.
+7. **Go to Settings**: Navigate to the "Settings" tab in the top menu.
+8. **Set Up Environment Variables**: Under the "Config Vars" section, click the "Reveal Config Vars" button and add the following keys and values:
+- `SECRET_KEY`: The secret key for your Django project.
+- `DATABASE_URL`: The URL for your database (e.g., Heroku Postgres).
+- `CLOUDINARY_URL`: The URL for your Cloudinary account (for media storage).
+9. **Enable Automatic Deploys**: In the "Deploy" section, enable automatic deploys from your GitHub repository. This will allow Heroku to automatically update your app whenever new changes are pushed to the repository.
+10. **Manual Deployment**: In case of manual deployment, choose the specific `branch` (e.g., main) of your GitHub repository that you want to deploy. Afterwards, click on the`Deploy Branch* button,
+
+11. **Open the App:** Once the deployment process is complete, click the "View" button to open the link to your live app.
+
+**For deployment, Heroku needs two additional files in order to deploy properly.**
+- **requirements.txt**:
+    - You can update the requirements file after installing more packages with the command:
+    ```bash
+    pip3 freeze --local > requirements.txt
+    ```
+    - You can install this project'S requirements using:
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+
+- **Procfile**, which can be created with the following steps:
+    1. echo web: gunicorn app_name.wsgi > Procfile
+    2. replace app_name with the name of your primary Django app name; the folder where settings.py is located
+
+
+### **Cloudinary**:
+To improve performance and scalability, the project uses Cloudinary for hosting media files like images. This offloads the task of serving static content from Heroku, optimizing both storage and delivery.
+
+Integration Steps:
+
+- Create a Cloudinary account and configure API keys in Django settings.
+- Use Django's storage backend to manage media uploads.
+
+By leveraging Cloudinary, the project ensures faster, more efficient media handling, while supporting future growth with a scalable solution.
+
+
+# Credits
+
+## Code:
+
+During the development of the Chronicle API application, several valuable resources were used for inspiration and knowledge:
+
+- [**Django Signals Documentation**](https://docs.djangoproject.com/en/5.1/ref/signals/)
+- [**DRF Documentation**](https://www.django-rest-framework.org/)
+- [**Stackoverflow:**](https://stackoverflow.com/) Utilized for finding solutions and troubleshooting errors encountered during development.
+
+
+## Media
+
+Media elemets for the site were gathered, managed, and edited using the following platforms:
+
+- [logo:](https://logo.com/) Used to create the site's logo.
+- [dbdiagram:](https://dbdiagram.io/d) to design site's database schema (ERD).
+
+
+# Acknowlegements
+
+The development of the Chronicle API has been a rewarding journey, and I am deeply appreciative of the valuable resources, support, and inspiration that have played a crucial role in bringing this project to life.
+
+### Inspiration
+The Chronicle API project draws inspiration from the following sources:
+
+- **Code Institute's "Django Rest Framework" Walkthrough Project:**
+This resource provided a crucial foundation for building the API. It helped me understand the principles of building a RESTful API using Django Rest Framework (DRF), including serialization, authentication, and endpoints. The walkthrough was key in setting up the core structure of the API and understanding best practices for backend development.
+It provided the essential features such as user profiles, posts, comments, likes, and followers. 
+
+- **Code Institute's "Moments" Walkthrough Project:** While this was primarily used as a reference for the front-end, the concepts and structure from Moments also inspired some of the API endpoints and how data is managed and structured for the Chronicle API.
+
+### Project Guidance
+
+- My Code Institute mentor, Juliia Konovalova, for her guidance.
+
+- Kristyna, our facilitator at Code Institute , for her constant support and positivity.
+
+- My classmates for their inspiration and help when things got tough.
+
