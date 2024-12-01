@@ -24,6 +24,7 @@ class EventList(generics.ListCreateAPIView):
     ).order_by('-created_at')
 
     filter_backends = [
+        filters.OrderingFilter,
         filters.SearchFilter,
         DjangoFilterBackend,
     ]
@@ -37,6 +38,10 @@ class EventList(generics.ListCreateAPIView):
     search_fields = [
         'owner__username',
         'title',
+    ]
+
+    ordering_fields = [
+        'attendings__created_at',
     ]
 
     def perform_create(self, serializer):
