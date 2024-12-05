@@ -244,3 +244,23 @@ Python File | Results | Comment |
 |serializers.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/serializers.png) </details> | No Errors
 |urls.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/urls.png) </details> | No Errors
 |views.py| <details> <summary><strong>Click to View Results</strong></summary>![PEP8 Results](documentation/testing/profiles/views.png) </details> | No Errors
+
+<br>
+
+# Detected Bugs
+
+## Fixed
+
+### - Attending Model Status Change Handling in Notifications:
+In the `notifications` app, there was an issue where changes to the `status` field of the `Attending` model (which tracks user attendance for events) were not being detected by the signal system in `signals.py`. This caused the notifications related to attendance updates to not trigger correctly when a user changed their status (e.g., from "Interested" to "Attending"). To resolve this, a custom `save()` method was added to the `Attending` model. This method now properly tracks changes to the `status` field by setting a flag (`_status_changed`) so that the notification system can update accordingly.
+
+
+## Not Fixed
+
+### Admin Panel Styling Issues
+
+I struggled with styling the Django admin panel for the **Chronicle API**. Despite trying to apply custom CSS and JavaScript, the styles were not being applied correctly.
+
+
+
+Go back to [README.md](README.md)

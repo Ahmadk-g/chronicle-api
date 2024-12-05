@@ -618,25 +618,31 @@ def to_representation(self, instance):
         return representation
 ```
 
-# Future Features
+# Future Features & Improvements
 
 1. **Enhanced Location Filtering:**
 Introduce a structured location input (e.g., separate fields for country and city) to allow users to filter events more effectively based on geography.
 
-2. **Custom Event Categories:**
+2. **Event Date Validation:**
+Enforce validation on the backend to ensure that event creation only accepts dates that are in the future. This will prevent users from submitting events with past dates, ensuring that the platform only hosts upcoming events.
+
+3. **Event Attendance List:**
+Develop an API endpoint that returns a list of users who have either confirmed attendance or expressed interest in a particular event. This list can be fetched by the frontend to display user profiles for event participants.
+
+4. **Custom Event Categories:**
 Enable users to create custom event categories in addition to the predefined options, offering more flexibility for event organizers.
 
-3. **Image Resizing:**
+5. **Image Resizing:**
 Implement automatic image resizing in the backend to allow users to upload any image size, while ensuring that images are optimized for storage and performance without sacrificing quality.
-
-4. **Favorites System:**
-Add a feature for users to mark events as favorites for easy access later.
 
 6. **Event Sharing:**
 Provide integration for sharing events on social media platforms or via direct links.
 
 7. **Advanced Search and Filtering:**
 Expand search capabilities with filters like date ranges, ticket prices, and event popularity.
+
+8. **Profile Deletion**:
+Allow users to delete their profiles, removing all their associated data, including events they have created, posts, and any personal information.
 
 
 
@@ -702,12 +708,95 @@ Integration Steps:
 
 By leveraging Cloudinary, the project ensures faster, more efficient media handling, while supporting future growth with a scalable solution.
 
+# Cloning and Forking
+
+## Cloning the Repository
+
+### Local Setup:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Ahmadk-g/chronicle-api
+   ```
+
+2. **Navigate to project directory**:
+  ``bash
+  cd chronicle-ap
+  ````
+
+3. **Install Dependencies:**
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+4. **Set up local environment variables in a .env file.**
+
+5. **Run migrations:**
+  ```bash
+  python manage.py makemigrations
+  python manage.oy migrate
+  ````
+
+6. **Start development server:**
+  ```bash
+  python manage.py runserver
+  ````
+
+## Forking the Repository
+
+To contribute or create your own version of the **Chronicle API** project, follow these steps:
+
+### 1. Fork the repository
+Go to the [Chronicle API GitHub repository](https://github.com/Ahmadk-g/chronicle-api) and click on the **Fork** button in the top-right corner of the page. This will create a copy of the repository under your own GitHub account.
+
+### 2. Clone your forked repository
+Once the repository is forked, clone it to your local machine using the following command:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/chronicle-api.git
+```
+
+2. **Navigate to project directory**:
+  ```bash
+  cd chronicle-ap
+  ```
+
+3. **Install Dependencies:**
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+4. **Set up local environment variables in a .env file.**
+
+5. **Run migrations:**
+  ```bash
+  python manage.py makemigrations
+  python manage.oy migrate
+  ````
+
+6. **Start development server:**
+  ```bash
+  python manage.py runserver
+  ````
+
+### 6. Make changes and commit them
+### 7. Push your changes
+### 8. Create a pull request
+
 
 # Credits
 
 ## Code:
 
 During the development of the Chronicle API application, several valuable resources were used for inspiration and knowledge:
+
+### Inspiration
+The Chronicle API project draws inspiration from the following sources:
+
+  - **Code Institute's "Django Rest Framework" Walkthrough Project:**
+  This resource provided a crucial foundation for building the API. It helped me understand the principles of building a RESTful API using Django Rest Framework (DRF), including serialization, authentication, and endpoints. The walkthrough was key in setting up the core structure of the API and understanding best practices for backend development.
+  It provided the essential features such as user profiles, posts, comments, likes, and followers. 
+
+  - **Code Institute's "Moments" Walkthrough Project:** While this was primarily used as a reference for the front-end, the concepts and structure from Moments also inspired some of the API endpoints and how data is managed and structured for the Chronicle API.
 
 - [**Django Signals Documentation**](https://docs.djangoproject.com/en/5.1/ref/signals/)
 - [**DRF Documentation**](https://www.django-rest-framework.org/)
@@ -726,14 +815,7 @@ Media elemets for the site were gathered, managed, and edited using the followin
 
 The development of the Chronicle API has been a rewarding journey, and I am deeply appreciative of the valuable resources, support, and inspiration that have played a crucial role in bringing this project to life.
 
-### Inspiration
-The Chronicle API project draws inspiration from the following sources:
 
-- **Code Institute's "Django Rest Framework" Walkthrough Project:**
-This resource provided a crucial foundation for building the API. It helped me understand the principles of building a RESTful API using Django Rest Framework (DRF), including serialization, authentication, and endpoints. The walkthrough was key in setting up the core structure of the API and understanding best practices for backend development.
-It provided the essential features such as user profiles, posts, comments, likes, and followers. 
-
-- **Code Institute's "Moments" Walkthrough Project:** While this was primarily used as a reference for the front-end, the concepts and structure from Moments also inspired some of the API endpoints and how data is managed and structured for the Chronicle API.
 
 ### Project Guidance
 
