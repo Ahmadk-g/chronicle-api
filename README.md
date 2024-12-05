@@ -3,15 +3,23 @@
 </p>
 <h1 align="center">Chronicle API - Django Rest Framework</h1>
 
+[Chronicle API Backend Live Link](https://chronicle-api-8dba6c70f37d.herokuapp.com/)
+
+[Chronicle React Frontend Live Link](https://chronicle-ci-fad840fb8771.herokuapp.com/)
+
+[Chronicle React Frontend Github Repo](https://github.com/Ahmadk-g/chronicle)
+
+
 <br>
 
-# Project Goals
+## Project Goals
 
 [Chronicle](https://chronicle-ci-fad840fb8771.herokuapp.com/) - Your Social Hub for Connection and Discovery
 
 Chronicle is a vibrant social media platform that combines the best of networking and event discovery, creating a seamless space for sharing experiences, building relationships, and staying connected. Whether you're here to connect with friends, explore engaging content, or discover exciting events, Chronicle empowers you to interact meaningfully and make the most of every moment.
 
-## Key Features:
+### Key Features:
+
 - **Discover and Engage:**
   - View posts from the community and interact by liking, commenting, and following users.
   - Stay updated with a personalized feed showcasing posts from people you follow.
@@ -46,17 +54,17 @@ The project is powered by a Django backend with a REST API, paired with a respon
 6. Implement a notification system to alert users of interactions such as likes, comments, or new followers.
 7. Ensure the platform supports responsive design, delivering a seamless experience across devices.
 
-# Data Models
+## Data Models
 
 The data models for this website are designed to create a cohesive and interconnected system that supports a dynamic platform for user interactions, event and post management, and content sharing. These models provide the foundation for key features such as user notifications, social interactions (likes, comments, followers), event attendance, and content-based activities. Together, they form a robust architecture that caters to both the functional and social needs of the application.
 
-## **Database Schema**
+### **Database Schema**
 The database schema leverages Django's ORM (Object-Relational Mapping) to establish a reliable and scalable structure. It encompasses built-in Django models along with custom-defined models tailored to the specific requirements of the platform. The schema emphasizes efficiency, maintainability, and clarity, ensuring that data relationships are optimized for seamless functionality across features.
 
 Key entities in the schema include:
 
 - **User-related Models:** Manage user profiles, social interactions (e.g., following), and notification preferences.
-- **Content-based Models:** Handle posts, likes, comments, event creation, and attendance tracking
+- **Content-based Models:** Handle posts, likes, comments, events, and attendance tracking
 - **Notifications:** Delivering real-time updates for likes, comments, follows, and event attendances.
 
 ### **Entity Relationship Diagram (ERD**)
@@ -64,9 +72,8 @@ The ERD visually maps out the relationships and dependencies among various entit
 
 ![Chronicle ERD](documentation/erd.png)
 
-## **Technical Architecture**
-The data models in Chronicle are designed with scalability, modularity, and efficiency at their core, leveraging Django's ORM to streamline data handling and interactions. The architecture ensures a robust and well-structured system that supports Chronicle’s features, including social interactions, notifications, and event management.
-
+### **Technical Architecture**
+The data models in Chronicle are designed with scalability, modularity, and efficiency at their core, leveraging Django's ORM to streamline data handling and interactions. The architecture ensures a robust and well-structured system that supports Chronicle’s features, including social interactions, notifications, and content management.
 
 
 #### **Core Design Principles**
@@ -78,7 +85,7 @@ The data models in Chronicle are designed with scalability, modularity, and effi
 
 <br>
 
-## **Key Model Relationships**
+### **Key Model Relationships**
 
 - Users:
   - **Profile**: Extends the default Django User model with additional fields for personalization.
@@ -142,7 +149,6 @@ The data models in Chronicle are designed with scalability, modularity, and effi
 | Notification | Post | Many-to-One | Many Notifications belong can be associated with one post |
 | Notification | Events | Many-to-One | Many Notifications belong can be associated with one event |
 
-<br>
 
 #### **Validation and Constraints**
 
@@ -159,9 +165,9 @@ Custom validation methods ensure logical consistency within the models:
 
 <br>
 
-## Detailed Model Descriptions
+### Detailed Model Descriptions
 
-### <u>**User Model**</u>
+#### <u>**User Model**</u>
 
 The User model is the backbone of the Chronicle application, handling authentication, user identity, and management with security and scalability in mind. Built into Django, it ensures robust functionality and integrates seamlessly with custom extensions like the Profile model.
 
@@ -183,7 +189,7 @@ The User model is the backbone of the Chronicle application, handling authentica
 - **Integration**: Natively integrates with Django’s authentication system.
 
 The User model serves as a cornerstone, supporting authentication, user-specific content, and other domain-specific functionalities.
-
+____________________________
 ### <u>**Profile Model**</u>
 
 The `Profile` model extends the `User` model, adding personalization and enabling users to share more about themselves, enhancing engagement across the platform.
@@ -206,11 +212,7 @@ The `Profile` model extends the `User` model, adding personalization and enablin
 |content|TextField|Optional bio or description for personalization.|
 |image|ImageField|Profile picture for visual identification.|
 
-
-**Advantages:**
-- **Flexibility**: Can be easily expanded to include additional user attributes.
-
-The Profile model complements the User model by handling personalized data and extending functionality.
+_____________________
 
 ### <u>**Posts Model**</u>
 
@@ -236,9 +238,7 @@ The Posts model powers user-generated content, forming the heart of social inter
 | image | ImageField | Optional image associated with the post. |
 | image_filter | CharField | Optional filter applied to the image. |
 
-
-The Posts model fosters user engagement by supporting rich, interactive content.
-
+____________________________
 
 ### <u>**Comments Model**</u>
 
@@ -261,8 +261,7 @@ The Comments model enables users to discuss and share feedback on posts.
 | post | ForeignKey | Connects the comment to its parent post. |
 | content | TextField | Main text of the comment. |
 
-The Comments model fosters communication, building vibrant discussions around user-generated content.
-
+____________________________
 
 ### <u>**Likes Model**</u>
 
@@ -283,7 +282,7 @@ The Likes model tracks user appreciation for posts.
 
 The Likes model is simple but essential for measuring user interaction.
 
-
+____________________________
 ### <u>**Events Model**</u>
 
 The Events model powers the creation, management, and promotion of events within the Chronicle app.
@@ -309,12 +308,11 @@ The Events model powers the creation, management, and promotion of events within
 | created_at | DateTimeField | Timestamp for when the event was created. |
 | updated_at | DateTimeField | Tracks the most recent updates to the event. |
 
-The Events model serves as a hub for gathering users and building an active community.
 
-
+____________________________
 ### <u>**Attendings Model**</u>
 
-The Attendings model tracks user participation in events, ensuring a streamlined system for managing attendees.
+The Attendings model tracks user participation in events.
 
 **Key Features:**
 
@@ -333,12 +331,10 @@ The Attendings model tracks user participation in events, ensuring a streamlined
 
 **Advantages:**
 
-- **Scalable**: Supports managing large numbers of attendees across multiple events.
 - **Insightful**: Helps event organizers track attendance trends.
 
-The Attendings model ensures seamless tracking of user participation in events, driving community engagement.
 
-
+____________________________
 ### <u>**Followers Model**</u>
 The Followers model enables social connectivity by allowing users to follow others, fostering a sense of community.
 
@@ -358,13 +354,9 @@ The Followers model enables social connectivity by allowing users to follow othe
 | created_at | DateTimeField  | Timestamp for when the follow relationship was created. |
 
 **Advantages:**
-
-- **Community Building**: Promotes connections and strengthens user relationships.
 - **Personalized Feeds**: Enables content curation based on followed users.
 
-
-The Followers model is a cornerstone for social interaction, driving engagement through connections.
-
+____________________________
 ### <u>**Notification Model**</u>
 The Notification model tracks user activity, ensuring important events are highlighted and delivered efficiently.
 
@@ -392,8 +384,8 @@ The Notification model tracks user activity, ensuring important events are highl
 - **Engagement**: Ensures users stay informed about platform activity.
 - **Organization**: Centralizes user interactions for better accessibility.
 
-
-# API Endpoints
+____________________________
+## API Endpoints
 
 This section outlines the RESTful `API endpoints` for the Chronicle app. Each endpoint is categorized based on the corresponding app or functionality, detailing the HTTP methods, URLs, and descriptions of the available operations.
 
@@ -522,30 +514,30 @@ Endpoints to manage user notifications.
 
 <br>
 
-# Frameworks, Libraries, and Dependencies
+## Frameworks, Libraries, and Dependencies
 
 The project leverages a robust stack of frameworks and libraries to provide efficient, scalable, and feature-rich functionality. Below is a detailed list of the major frameworks and dependencies used:
 
-### Core Frameworks
+#### Core Frameworks
 - **Django** (v3.2.25): A high-level Python web framework that simplifies the development of secure and scalable web applications.
 - **Django REST Framework** (v3.12.4): A powerful and flexible toolkit for building Web APIs.
 - **Django Allauth** (v0.54.0): Integrated tools for handling user authentication, registration, and account management.
 
-### API and Authentication
+#### API and Authentication
 - **dj-rest-auth** (v2.1.9): Provides a RESTful API for Django authentication, including features like login, registration, and password management.
 - **Djangorestframework-simplejwt** (v5.3.1): Implements JSON Web Token (JWT) authentication for secure API access.
 - **OAuthlib** (v3.2.2) & Requests-OAuthlib (v2.0.0): Libraries used for handling OAuth flows for third-party authentication.
 
-### Cloud Services
+#### Cloud Services
 - **Cloudinary**(v1.41.0): Enables easy management of image and video uploads to the cloud.
 - **Django-Cloudinary-Storage** (v0.3.0): Facilitates the integration of Cloudinary as the default media storage backend for Django applications.
 
-### Database and ORM
+#### Database and ORM
 - **dj-database-url** (v0.5.0): Simplifies database configuration from a single URL.
 - **psycopg2** (v2.9.10): A PostgreSQL adapter for Python, providing efficient interaction with PostgreSQL databases.
 - **SQLParse** (v0.5.1): A non-validating SQL parser used internally by Django.
 
-### Utilities
+#### Utilities
 - **Django Filter** (v2.4.0): Provides easy filtering options for querying data in Django REST APIs.
 - **Django CORS Headers** (v4.5.0): Handles Cross-Origin Resource Sharing (CORS) requests, ensuring secure interaction between frontend and backend systems.
 - **Pillow** (v11.0.0): A Python Imaging Library (PIL) fork used for handling image processing tasks like resizing and formatting.
@@ -553,72 +545,17 @@ The project leverages a robust stack of frameworks and libraries to provide effi
 - **Setuptools** (v69.5.1): Simplifies the process of packaging and distributing Python projects.
 - **asgiref** (v3.8.1): Provides asynchronous server gateway interface (ASGI) support, enabling real-time features and efficient request handling.
 
-### Deployment
+#### Deployment
 - **Gunicorn** (v23.0.0): A Python WSGI HTTP server for running the application in production environments.
 Asynchronous Support
 
 
-# Testing and Validation
+## Testing and Validation
 
 For all testing and validation, please refer to the [TESTING.md](TESTING.md) file.
 
 
-# Bugs
-
-### Fixed
-
-
-
-1. Fix for Duplicate Notifications in `signals.py`
-
-- **Location**:
-`Notification/signals.py`, responsible for automatically creating notifications for relevant model changes.
-
-- **Problem**: Attendance notifications could be duplicated if the same notifier updated their status for the same event multiple times, leading to redundant entries.
-
-- **Solution**: In the `create_update_attendance_notification` signal handler:
-  - Added a filter to delete any existing notifications for the same notifier, event, and status before creating a new one.
-  - This ensures only one notification exists per notifier and event at any given time.
-
-
-### Not Fixed
-
-1. In the **EventSerializer**, the `to_representation` method customizes how the `event_date` and `ticket_price` are displayed.
-
-- **Problem**: The custom formatting for `event_date` and `ticket_price` causes issues when trying to update an event (via a PUT request) in both the backend development database and the frontend form:
-
-  - `event_date` is formatted as 'DD MMM YYYY' for display but is not converted back to the expected format (YYYY-MM-DD) when updating.
-  - `ticket_price` is displayed as "Free" if it's 0.00, which doesn't match the expected format for the backend.
-
-This mismatch results in fields not being properly prefilled in the frontend and rejected updates in the backend.
-
-**Relevant Code**:
-```python
-def to_representation(self, instance):
-        """
-        Override the default `to_representation` method to:
-        Format how ticket_price is represented.
-        Format start_time, end_time, and event_date.
-        """
-        representation = super().to_representation(instance)
-
-        # Format event_date to 'DD MMM YYYY'
-        representation['event_date'] = (
-            instance.event_date.strftime("%d %b %Y")
-            if instance.event_date
-            else None
-        )
-
-        # Modify the ticket_price field
-        if instance.ticket_price == 0.00:
-            representation['ticket_price'] = "Free"
-        else:
-            representation['ticket_price'] = f"€{instance.ticket_price:.2f}"
-
-        return representation
-```
-
-# Future Features & Improvements
+## Future Features & Improvements
 
 1. **Enhanced Location Filtering:**
 Introduce a structured location input (e.g., separate fields for country and city) to allow users to filter events more effectively based on geography.
@@ -646,7 +583,7 @@ Allow users to delete their profiles, removing all their associated data, includ
 
 
 
-# Deployment
+## Deployment
 
 The live link can be found here - [**Chronicle-API**](https://chronicle-api-8dba6c70f37d.herokuapp.com/)
 
@@ -708,120 +645,131 @@ Integration Steps:
 
 By leveraging Cloudinary, the project ensures faster, more efficient media handling, while supporting future growth with a scalable solution.
 
-# Cloning and Forking
+## Cloning and Forking
 
-## Cloning the Repository
+### Cloning the Repository
 
-### Local Setup:
+#### Local Setup:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Ahmadk-g/chronicle-api
    ```
 
 2. **Navigate to project directory**:
-  ``bash
-  cd chronicle-ap
-  ````
+    ```bash
+    cd chronicle-ap
+    ```
 
 3. **Install Dependencies:**
-  ```bash
-  pip install -r requirements.txt
-  ```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-4. **Set up local environment variables in a .env file.**
+4. **Set up local environment variables in a `.env` file.**
 
 5. **Run migrations:**
-  ```bash
-  python manage.py makemigrations
-  python manage.oy migrate
-  ````
+    ```bash
+    python manage.py makemigrations
+    python manage.oy migrate
+    ```
 
 6. **Start development server:**
-  ```bash
-  python manage.py runserver
-  ````
+    ```bash
+    python manage.py runserver
+    ```
 
-## Forking the Repository
+### Forking the Repository
 
 To contribute or create your own version of the **Chronicle API** project, follow these steps:
 
-### 1. Fork the repository
-Go to the [Chronicle API GitHub repository](https://github.com/Ahmadk-g/chronicle-api) and click on the **Fork** button in the top-right corner of the page. This will create a copy of the repository under your own GitHub account.
+1. **Fork the repository:**
 
-### 2. Clone your forked repository
-Once the repository is forked, clone it to your local machine using the following command:
+    Go to the [Chronicle API GitHub repository](https://github.com/Ahmadk-g/chronicle-api) and click on the **Fork** button in the top-right corner of the page. This will create a copy of the repository under your own GitHub account.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/chronicle-api.git
-```
+2. **Clone your forked repository**
 
-2. **Navigate to project directory**:
-  ```bash
-  cd chronicle-ap
-  ```
+    Once the repository is forked, clone it to your local machine using the following command:
 
-3. **Install Dependencies:**
-  ```bash
-  pip install -r requirements.txt
-  ```
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/chronicle-api.git
+    ```
 
-4. **Set up local environment variables in a .env file.**
+3. **Navigate to project directory**:
+      ```bash
+      cd chronicle-ap
+      ```
 
-5. **Run migrations:**
-  ```bash
-  python manage.py makemigrations
-  python manage.oy migrate
-  ````
+4. **Install Dependencies:**
+      ```bash
+      pip install -r requirements.txt
+      ```
 
-6. **Start development server:**
-  ```bash
-  python manage.py runserver
-  ````
+5. **Set up local environment variables in a .env file.**
 
-### 6. Make changes and commit them
-### 7. Push your changes
-### 8. Create a pull request
+6. **Run migrations:**
+      ```bash
+      python manage.py makemigrations
+      python manage.oy migrate
+      ```
+
+7. **Start development server:**
+      ```bash
+      python manage.py runserver
+      ```
+
+7. **Make changes and commit them**
+8. **Push your changes**
+9. **Create a pull request**
 
 
-# Credits
+## Credits
 
-## Code:
+### Code:
 
 During the development of the Chronicle API application, several valuable resources were used for inspiration and knowledge:
 
-### Inspiration
-The Chronicle API project draws inspiration from the following sources:
-
+**The Chronicle API project draws inspiration from the following sources:**
   - **Code Institute's "Django Rest Framework" Walkthrough Project:**
   This resource provided a crucial foundation for building the API. It helped me understand the principles of building a RESTful API using Django Rest Framework (DRF), including serialization, authentication, and endpoints. The walkthrough was key in setting up the core structure of the API and understanding best practices for backend development.
   It provided the essential features such as user profiles, posts, comments, likes, and followers. 
 
   - **Code Institute's "Moments" Walkthrough Project:** While this was primarily used as a reference for the front-end, the concepts and structure from Moments also inspired some of the API endpoints and how data is managed and structured for the Chronicle API.
+_____
+
 
 - [**Django Signals Documentation**](https://docs.djangoproject.com/en/5.1/ref/signals/)
 - [**DRF Documentation**](https://www.django-rest-framework.org/)
 - [**Stackoverflow:**](https://stackoverflow.com/) Utilized for finding solutions and troubleshooting errors encountered during development.
+---
 
-
-## Media
+### Media
 
 Media elemets for the site were gathered, managed, and edited using the following platforms:
 
 - [logo:](https://logo.com/) Used to create the site's logo.
 - [dbdiagram:](https://dbdiagram.io/d) to design site's database schema (ERD).
 
+### ## Readme and Testing Inpiration
 
-# Acknowlegements
+- [Readme and Testing by Swathi Keshavamurthy](https://github.com/SwathiKeshavamurthy/fitandfine-p5)
+- [Readme and Testing by Amir Shkolnik](https://github.com/AmirShkolnik/DivingCenter_API)
+- [Readme and Testing by AlAliMazen](https://github.com/AlAliMazen/tech-roadmap-drf/)
 
-The development of the Chronicle API has been a rewarding journey, and I am deeply appreciative of the valuable resources, support, and inspiration that have played a crucial role in bringing this project to life.
+<br>
 
+## Acknowlegements
 
+The development of the Chronicle project has been a rewarding journey, and I am deeply appreciative of the valuable resources, support, and inspiration that have played a crucial role in bringing this project to life.
 
-### Project Guidance
+The development of the Chronicle API has been an enriching experience, and I am sincerely grateful for the guidance, resources, and encouragement that have been essential in bringing this project to fruition.
 
-- My Code Institute mentor, Juliia Konovalova, for her guidance.
+- Juliia Konovalova, my Code Institute mentor, whose insightful guidance and unwavering support helped me overcome numerous challenges.
 
-- Kristyna, our facilitator at Code Institute , for her constant support and positivity.
+- Kristyna, our facilitator at Code Institute, whose positivity and constant encouragement made all the difference during the more difficult moments.
 
-- My classmates for their inspiration and help when things got tough.
+- To my classmates, for their camaraderie and inspiration, and for offering help whenever things seemed daunting. Your support was invaluable.
+
+- Most importantly, my partner Siba, for always being there for me throughout this entire course. Your unwavering support and encouragement made this journey much smoother.
+
+Thank you to everyone who contributed to this journey, whether through direct assistance or by simply providing motivation.
 
